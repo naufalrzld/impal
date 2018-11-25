@@ -1,0 +1,25 @@
+M. Naufal Rizaldi (1301160334)
+-Login
+-Register
+-Cart
+-Logout
+-Session
+
+M. Fikri Sabriansyah (1301164298)
+-Buat Toko
+-Kelola Toko
+-Edit Toko
+-Tambah Barang
+-Edit Barang
+
+M. Faisal Nur (1301164372)
+-Profile
+-Detail Barang
+-Session
+-Komentar
+
+Nurliah Awaliah (1301164424)
+-Dashboard
+-Pagination
+-Detail Barang
+

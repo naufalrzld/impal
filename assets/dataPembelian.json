@@ -1,0 +1,28 @@
+{
+	"dataPembelian": [
+		{
+			"IDPemesanan": "20180301",
+			"Tanggal": "01/03/2018",
+			"NamaBarang": "RAM Kingston 4GB",
+			"Harga": 550000,
+			"Kuantitas": 1,
+			"Total": 550000
+		},
+		{
+			"IDPemesanan": "20180302",
+			"Tanggal": "02/03/2018",
+			"NamaBarang": "Hard Disk Samsung 1TB",
+			"Harga": 1125000,
+			"Kuantitas": 1,
+			"Total": 1125000
+		},
+		{
+			"IDPemesanan": "20180303",
+			"Tanggal": "03/03/2018",
+			"NamaBarang": "Flash Disk Kingston 8GB",
+			"Harga": 50000,
+			"Kuantitas": 2,
+			"Total": 100000
+		}
+	]
+}
