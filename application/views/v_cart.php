@@ -7,6 +7,7 @@
           <table class="table table-striped">
             <thead>
               <tr>
+								<th>Gambar</th>
                 <th>Produk</th>
                 <th>Harga</th>
                 <th>Qty</th>
@@ -20,5 +21,12 @@
           </table>
         </div>
     </div>
+		<div class="row">
+			<div class="col-md-8 col-sm-8 col-xs-8">
+				<a href="<?php echo site_url("dashboard"); ?>">
+					<button class="btn btn-outline-danger btn-tambah-barang">Belanja Kembali</button>
+				</a>
+			</div>
+		</div>
   </div>
     <!-- List Barang End -->

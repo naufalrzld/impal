@@ -3,10 +3,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Profil extends CI_Controller {
 	public function index() {
 			$this->load->view("v_header");
-			$this->load->view("v_profil");
+
+			$member_id = $this->session->userdata("datauser")["member_id"];
+
+			$this->load->model('Pemesanan_Model');
+			$data['history'] = $this->Pemesanan_Model->get_history($member_id);
+
+			$this->load->view("v_profil", $data);
 			$this->load->view("v_footer");
 	}
-
 	function veditprofil() {
 			$this->load->view("v_header");
 			$this->load->view("v_editprofil");

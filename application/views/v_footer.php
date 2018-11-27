@@ -39,18 +39,6 @@
                 }
               });
             });
-            $(document).on('click','.checkout',function(){
-              var row_id=$(this).attr("id"); //mengambil row_id dari artibut id
-              $.ajax({
-                url : "<?php echo base_url();?>cart/checkout",
-                method : "POST",
-                data : {row_id : row_id},
-                success :function(data){
-                  $('#detail_cart').html(data);
-                  alert("Sukses");
-                }
-              });
-            });
         } );
       </script>
 </body>

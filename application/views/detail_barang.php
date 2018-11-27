@@ -9,9 +9,9 @@
 								<img class="gbr_produk" src="<?php echo base_url('assets')?>/image/uploads/<?php echo $barang->images; ?> ">
 							</div>
 							<div class="col-md-6">
-								<h6 class="judul_p"><?php echo $barang->nama_barang; ?></h6>
+								<h2 class="judul_p"><?php echo $barang->nama_barang; ?></h2>
 								<hr class="onepixel">
-								<h3 class="harga" align="left">Rp. <?php echo $barang->harga; ?></h3>
+								<h3 class="harga" align="left">Rp <?php echo number_format($barang->harga); ?></h3>
 								<p class="text-left">Detail Barang</p>
 								<div class="row">
 									<div class="col-md-3">

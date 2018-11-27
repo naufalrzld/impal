@@ -1,4 +1,4 @@
-<?php 
+<?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 class Cart extends CI_Controller {
 
@@ -16,7 +16,8 @@ class Cart extends CI_Controller {
 			$no++;
 			$output .='
 				<tr>
-					<td>'.$items['name'].'</td>
+					<td><img src="'.$items['image'].'"></td>
+					<td valign="center">'.$items['name'].'</td>
 					<td>'.number_format($items['price']).'</td>
 					<td>'.$items['qty'].'</td>
 					<td>'.number_format($items['subtotal']).'</td>
@@ -26,9 +27,9 @@ class Cart extends CI_Controller {
 		}
 		$output .= '
 			<tr>
-				<th colspan="3">Total</th>
+				<th colspan=4">Total</th>
 				<th>'.'Rp '.number_format($this->cart->total()).'</th>
-				<th><button type="button" class="checkout btn btn-danger btn-xs">Checkout</button></th>
+				<th><a href="'.site_url("cart/checkout").'"><button type="button" class="checkout btn btn-danger btn-xs">Checkout</button></a></th>
 			</tr>
 		';
 		return $output;
@@ -40,7 +41,7 @@ class Cart extends CI_Controller {
 
 	public function hapus_cart(){ //fungsi untuk menghapus item cart
 		$data = array(
-			'rowid' => $this->input->post('row_id'), 
+			'rowid' => $this->input->post('row_id'),
 			'qty' => 0,
 		);
 		$this->cart->update($data);
@@ -51,20 +52,19 @@ class Cart extends CI_Controller {
 		$this->load->model("barang_model");
 		foreach ($this->cart->contents() as $items) {
 			$data = array(
-				"member_id" => $this->session->userdata("member_id"),
+				"member_id" => $this->session->userdata("datauser")["member_id"],
 				"barang_id" => $items["id"],
 				"kuantitas" => $items["qty"],
-				"total" => $items["price"]
+				"total" => $items["subtotal"]
 			);
 			$this->barang_model->addTransaction($data);
 
 			$data = array(
-				'rowid' => $items["rowid"], 
+				'rowid' => $items["rowid"],
 				'qty' => 0,
 			);
 			$this->cart->update($data);
-
 		}
-		echo $this->show_cart();
+		redirect("cart");
 	}
 }

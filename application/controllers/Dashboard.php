@@ -60,13 +60,14 @@ class Dashboard extends CI_Controller {
 	public function addToCart() {
 		$data = array(
 			'id' => $this->input->post('barang_id'),
+			'image' => $this->input->post('image'),
 			'name' => $this->input->post('nama_barang'),
 			'price' => $this->input->post('harga'),
 			'qty' => $this->input->post('quantity'),
 		);
 
 		$this->cart->insert($data);
-		echo "Barang sudah dimasukkan ke keranjang";
+		redirect("cart");
 	}
 	// *chart
 }

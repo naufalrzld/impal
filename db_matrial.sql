@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 25, 2018 at 04:31 PM
+-- Generation Time: Nov 27, 2018 at 03:49 PM
 -- Server version: 10.1.29-MariaDB
 -- PHP Version: 7.2.0
 
@@ -30,8 +30,8 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `barang` (
   `barang_id` int(11) NOT NULL,
-  `images` varchar(100) NOT NULL DEFAULT 'default.png',
   `nama_barang` varchar(255) NOT NULL,
+  `images` varchar(100) NOT NULL DEFAULT 'default.png',
   `harga` int(11) NOT NULL,
   `deskripsi_b` text NOT NULL,
   `stok` int(11) NOT NULL
@@ -41,9 +41,10 @@ CREATE TABLE `barang` (
 -- Dumping data for table `barang`
 --
 
-INSERT INTO `barang` (`barang_id`, `images`, `nama_barang`, `harga`, `deskripsi_b`, `stok`) VALUES
-(6, 'palu.jpg', 'Palu', 15000, 'Warna hitam\r\nPegangan besi\r\nBerat 1.5 kg\r\nPanjang 20 cm', 10),
-(7, 'cat_vinilex.jpg', 'Cat Tembok Merah', 200000, 'Cat untuk tembok warna merah', 8);
+INSERT INTO `barang` (`barang_id`, `nama_barang`, `images`, `harga`, `deskripsi_b`, `stok`) VALUES
+(6, 'Palu', 'palu.jpg', 15000, 'Warna hitam\r\nPegangan besi\r\nBerat 1.5 kg\r\nPanjang 20 cm', 10),
+(7, 'Cat Tembok Merah', 'cat_vinilex.jpg', 200000, 'Cat untuk tembok warna merah', 8),
+(8, 'Besi Beton Ulir', 'besi.jpg', 7000, 'Harga/kg, minimal pembelian 1 kg', 100);
 
 -- --------------------------------------------------------
 
@@ -114,8 +115,18 @@ CREATE TABLE `pemesanan` (
   `member_id` int(11) NOT NULL,
   `barang_id` int(11) NOT NULL,
   `kuantitas` int(11) NOT NULL,
-  `total` int(11) NOT NULL
+  `total` int(11) NOT NULL,
+  `tanggal` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `pemesanan`
+--
+
+INSERT INTO `pemesanan` (`kode_pemesanan`, `member_id`, `barang_id`, `kuantitas`, `total`, `tanggal`) VALUES
+(8, 1, 6, 1, 15000, '2018-11-27 14:16:17'),
+(9, 1, 8, 5, 35000, '2018-11-27 14:16:17'),
+(10, 2, 7, 1, 200000, '2018-11-27 15:48:55');
 
 -- --------------------------------------------------------
 
@@ -193,7 +204,7 @@ ALTER TABLE `toko`
 -- AUTO_INCREMENT for table `barang`
 --
 ALTER TABLE `barang`
-  MODIFY `barang_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `barang_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `komen_b`
@@ -211,7 +222,7 @@ ALTER TABLE `member`
 -- AUTO_INCREMENT for table `pemesanan`
 --
 ALTER TABLE `pemesanan`
-  MODIFY `kode_pemesanan` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `kode_pemesanan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `toko`

@@ -85,11 +85,23 @@
                   <th>Harga Satuan</th>
                   <th>Kuantitas</th>
                   <th>Total harga</th>
-                  <th>Aksi</th>
                 </tr>
             </thead>
             <tbody>
-              <!-- Isi -->
+              <?php
+                foreach ($history as $trx) {
+              ?>
+              <tr>
+                <td><?php echo $trx["kode_pemesanan"] ?></td>
+                <td><?php echo $trx["tanggal"] ?></td>
+                <td><?php echo $trx["nama_barang"] ?></td>
+                <td><?php echo "Rp ".number_format($trx["harga"]) ?></td>
+                <td><?php echo $trx["kuantitas"] ?></td>
+                <td><?php echo "Rp ".number_format($trx["total"]) ?></td>
+              </tr>
+              <?php
+                }
+              ?>
             </tbody>
             </table>
           </div>

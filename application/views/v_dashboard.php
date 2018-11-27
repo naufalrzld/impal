@@ -12,7 +12,7 @@
 						<div class="frame-produk-body">
 							<div class="desc">
 	              <h6 style="font-family: Arial; "><?php echo $barang['nama_barang']; ?></h6>
-	              <h6 style="color: #ED9D00; font-weight: bold; font-family: Arial; ">Rp.<?php echo $barang['harga']; ?></h6>
+	              <h6 style="color: #ED9D00; font-weight: bold; font-family: Arial; ">Rp <?php echo number_format($barang['harga']); ?></h6>
 	            </div>
 							<div class="tombol-beli">
 	              <a href="<?php echo base_url('dashboard/detail')?>/<?php echo $barang['barang_id']; ?> " class="btn btn-outline-danger btn-block mx-auto" role="button" aria-pressed="true">Detail Barang</a>
@@ -33,6 +33,7 @@
                           <div class="row-fluid">
                             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                               <img src="<?php echo base_url('assets')?>/image/uploads/<?php echo $barang['images']; ?> " class="produk img-fluid" alt="Baju">
+															<input type="hidden" name="image" value="<?php echo base_url('assets')?>/image/uploads/<?php echo $barang['images']; ?>">
                             </div>
                             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
                               <input type="hidden" name="barang_id" value="<?= $barang["barang_id"] ?>">
