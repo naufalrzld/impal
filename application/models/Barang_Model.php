@@ -9,14 +9,19 @@
 
 		public function detail_barang($barang_id){
 			$this->db->where('barang_id', $barang_id);
-			return $this->db->get('barang')->row();	
+			return $this->db->get('barang')->row();
 		}
 
 		public function get_data_row() {
 			return $this->db->get('barang')->num_rows();
 		}
 
-		public function addTransaction($data) {
-			$this->db->insert("pemesanan", $data);
+		public function addPengiriman($dataPengiriman) {
+			$this->db->insert("pengiriman", $dataPengiriman);
+			return $this->db->insert_id();
+		}
+
+		public function addTransaction($dataPemesanan) {
+			$this->db->insert("pemesanan", $dataPemesanan);
 		}
 	}

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 27, 2018 at 03:49 PM
+-- Generation Time: Dec 12, 2018 at 08:24 PM
 -- Server version: 10.1.29-MariaDB
 -- PHP Version: 7.2.0
 
@@ -45,18 +45,6 @@ INSERT INTO `barang` (`barang_id`, `nama_barang`, `images`, `harga`, `deskripsi_
 (6, 'Palu', 'palu.jpg', 15000, 'Warna hitam\r\nPegangan besi\r\nBerat 1.5 kg\r\nPanjang 20 cm', 10),
 (7, 'Cat Tembok Merah', 'cat_vinilex.jpg', 200000, 'Cat untuk tembok warna merah', 8),
 (8, 'Besi Beton Ulir', 'besi.jpg', 7000, 'Harga/kg, minimal pembelian 1 kg', 100);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `komen_b`
---
-
-CREATE TABLE `komen_b` (
-  `id_komen` int(11) NOT NULL,
-  `komen` varchar(100) NOT NULL,
-  `barang_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -114,6 +102,7 @@ CREATE TABLE `pemesanan` (
   `kode_pemesanan` int(11) NOT NULL,
   `member_id` int(11) NOT NULL,
   `barang_id` int(11) NOT NULL,
+  `id_pengiriman` int(11) NOT NULL,
   `kuantitas` int(11) NOT NULL,
   `total` int(11) NOT NULL,
   `tanggal` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
@@ -123,33 +112,35 @@ CREATE TABLE `pemesanan` (
 -- Dumping data for table `pemesanan`
 --
 
-INSERT INTO `pemesanan` (`kode_pemesanan`, `member_id`, `barang_id`, `kuantitas`, `total`, `tanggal`) VALUES
-(8, 1, 6, 1, 15000, '2018-11-27 14:16:17'),
-(9, 1, 8, 5, 35000, '2018-11-27 14:16:17'),
-(10, 2, 7, 1, 200000, '2018-11-27 15:48:55');
+INSERT INTO `pemesanan` (`kode_pemesanan`, `member_id`, `barang_id`, `id_pengiriman`, `kuantitas`, `total`, `tanggal`) VALUES
+(25, 1, 6, 3, 1, 15000, '2018-12-12 14:48:51'),
+(26, 1, 7, 3, 1, 200000, '2018-12-12 14:48:51'),
+(27, 2, 7, 4, 5, 1000000, '2018-12-13 00:04:07'),
+(28, 2, 6, 5, 2, 30000, '2018-12-13 00:41:57'),
+(29, 2, 8, 5, 5, 35000, '2018-12-13 00:41:57');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `toko`
+-- Table structure for table `pengiriman`
 --
 
-CREATE TABLE `toko` (
-  `toko_id` int(11) NOT NULL,
-  `member_id` int(11) NOT NULL,
-  `nama_toko` varchar(50) NOT NULL,
-  `deskripsi` text NOT NULL,
+CREATE TABLE `pengiriman` (
+  `id_pengiriman` int(11) NOT NULL,
+  `nama_penerima` varchar(50) NOT NULL,
+  `no_tlp` varchar(13) NOT NULL,
   `alamat` text NOT NULL,
-  `images` varchar(100) NOT NULL
+  `status` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `toko`
+-- Dumping data for table `pengiriman`
 --
 
-INSERT INTO `toko` (`toko_id`, `member_id`, `nama_toko`, `deskripsi`, `alamat`, `images`) VALUES
-(1, 1, 'Fal\'s', 'Toko Naufal', 'Jl. Bojongsoang No. 271', '14614193540031.jpg'),
-(2, 2, 'iCang Store', 'icang store menjual beberapa barang untuk gamers', 'Malang', '');
+INSERT INTO `pengiriman` (`id_pengiriman`, `nama_penerima`, `no_tlp`, `alamat`, `status`) VALUES
+(3, 'Ujang', '082115630310', 'Jl. Telekomunikasi No. 1 Dayehkolot Kab. Bandung', 2),
+(4, 'M. Faisal Nur', '082112345678', 'Surabaya', 2),
+(5, 'M. Faisal Nur', '082112345678', 'surabaya', 2);
 
 --
 -- Indexes for dumped tables
@@ -160,13 +151,6 @@ INSERT INTO `toko` (`toko_id`, `member_id`, `nama_toko`, `deskripsi`, `alamat`, 
 --
 ALTER TABLE `barang`
   ADD PRIMARY KEY (`barang_id`);
-
---
--- Indexes for table `komen_b`
---
-ALTER TABLE `komen_b`
-  ADD PRIMARY KEY (`id_komen`),
-  ADD KEY `barang_id` (`barang_id`);
 
 --
 -- Indexes for table `login`
@@ -187,14 +171,14 @@ ALTER TABLE `member`
 ALTER TABLE `pemesanan`
   ADD PRIMARY KEY (`kode_pemesanan`),
   ADD KEY `member_id` (`member_id`),
-  ADD KEY `barang_id` (`barang_id`);
+  ADD KEY `barang_id` (`barang_id`),
+  ADD KEY `id_pengiriman` (`id_pengiriman`);
 
 --
--- Indexes for table `toko`
+-- Indexes for table `pengiriman`
 --
-ALTER TABLE `toko`
-  ADD PRIMARY KEY (`toko_id`),
-  ADD KEY `member_id` (`member_id`);
+ALTER TABLE `pengiriman`
+  ADD PRIMARY KEY (`id_pengiriman`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -207,12 +191,6 @@ ALTER TABLE `barang`
   MODIFY `barang_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
--- AUTO_INCREMENT for table `komen_b`
---
-ALTER TABLE `komen_b`
-  MODIFY `id_komen` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `member`
 --
 ALTER TABLE `member`
@@ -222,23 +200,17 @@ ALTER TABLE `member`
 -- AUTO_INCREMENT for table `pemesanan`
 --
 ALTER TABLE `pemesanan`
-  MODIFY `kode_pemesanan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `kode_pemesanan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
--- AUTO_INCREMENT for table `toko`
+-- AUTO_INCREMENT for table `pengiriman`
 --
-ALTER TABLE `toko`
-  MODIFY `toko_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+ALTER TABLE `pengiriman`
+  MODIFY `id_pengiriman` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Constraints for dumped tables
 --
-
---
--- Constraints for table `komen_b`
---
-ALTER TABLE `komen_b`
-  ADD CONSTRAINT `komen_b_ibfk_1` FOREIGN KEY (`barang_id`) REFERENCES `barang` (`barang_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `member`
@@ -251,13 +223,8 @@ ALTER TABLE `member`
 --
 ALTER TABLE `pemesanan`
   ADD CONSTRAINT `pemesanan_ibfk_1` FOREIGN KEY (`member_id`) REFERENCES `member` (`member_id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `pemesanan_ibfk_2` FOREIGN KEY (`barang_id`) REFERENCES `barang` (`barang_id`) ON DELETE CASCADE;
-
---
--- Constraints for table `toko`
---
-ALTER TABLE `toko`
-  ADD CONSTRAINT `toko_ibfk_1` FOREIGN KEY (`member_id`) REFERENCES `member` (`member_id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `pemesanan_ibfk_2` FOREIGN KEY (`barang_id`) REFERENCES `barang` (`barang_id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `pemesanan_ibfk_3` FOREIGN KEY (`id_pengiriman`) REFERENCES `pengiriman` (`id_pengiriman`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

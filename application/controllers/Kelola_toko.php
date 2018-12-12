@@ -3,11 +3,16 @@
 		function __construct(){
 			parent::__construct();
 			$this->load->model('kelola_toko_model');
+			$this->load->model('pengiriman_model');
 		}
 		function index() {
 			$toko_id =  $this->session->userdata("has_toko");
 
 			$data["dataBrg"] = $this->kelola_toko_model->get_data();
+			$data["pengiriman"] = $this->pengiriman_model->getPengiriman(0);
+			$data["dikirim"] = $this->pengiriman_model->getPengiriman(1);
+			$data["diterima"] = $this->pengiriman_model->getPengiriman(2);
+			$data["controller"] = $this;
 			$this->load->view("v_header");
 			$this->load->view("v_kelola_toko", $data);
 			$this->load->view('v_footer');
@@ -134,6 +139,21 @@
 
 			$this->kelola_toko_model->delete($kode_barang);
 			redirect('kelola_toko');
+		}
+
+		function getDetailPengiriman($id_pengiriman) {
+			return $this->pengiriman_model->getDetailPengiriman($id_pengiriman);
+		}
+
+		function kirim() {
+			$id_pengiriman = $this->input->post("id_pengiriman");
+
+			$data = array(
+				"status" => 1
+			);
+
+			$this->pengiriman_model->updatePengiriman($id_pengiriman, $data);
+			redirect("kelola_toko");
 		}
 	}
 ?>

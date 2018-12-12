@@ -4,8 +4,9 @@ class Cart extends CI_Controller {
 
 	public function index()
 	{
+		$data["user"] = $this->session->userdata("datauser");
 		$this->load->view('v_header');
-		$this->load->view('v_cart');
+		$this->load->view('v_cart', $data);
 		$this->load->view('v_footer');
 	}
 
@@ -27,9 +28,8 @@ class Cart extends CI_Controller {
 		}
 		$output .= '
 			<tr>
-				<th colspan=4">Total</th>
-				<th>'.'Rp '.number_format($this->cart->total()).'</th>
-				<th><a href="'.site_url("cart/checkout").'"><button type="button" class="checkout btn btn-danger btn-xs">Checkout</button></a></th>
+				<th colspan="4">Total</th>
+				<th colspan="2">'.'Rp '.number_format($this->cart->total()).'</th>
 			</tr>
 		';
 		return $output;
@@ -50,13 +50,30 @@ class Cart extends CI_Controller {
 
 	function checkout() {
 		$this->load->model("barang_model");
+		$datauser = $this->session->userdata("datauser");
+
+		$name = $this->input->post("name");
+		$no_tlp = $this->input->post("no_tlp");
+		$alamat = $this->input->post("alamat");
+
+		$dataPengiriman = array(
+			"nama_penerima" => $name,
+			"no_tlp" => $no_tlp,
+			"alamat" => $alamat,
+			"status" => 0
+		);
+
+		$id_pengiriman = $this->barang_model->addPengiriman($dataPengiriman);
+
 		foreach ($this->cart->contents() as $items) {
 			$data = array(
-				"member_id" => $this->session->userdata("datauser")["member_id"],
+				"member_id" => $datauser["member_id"],
 				"barang_id" => $items["id"],
+				"id_pengiriman" => $id_pengiriman,
 				"kuantitas" => $items["qty"],
 				"total" => $items["subtotal"]
 			);
+
 			$this->barang_model->addTransaction($data);
 
 			$data = array(

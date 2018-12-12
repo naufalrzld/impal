@@ -49,10 +49,10 @@
 							}
 						?>
 						<div class="col-sm-12">
-							<input type="text" class="form-control username" aria-describedby="inputGroup-sizing-default" placeholder="E-mail / Username" name="username">
+							<input type="text" class="form-control oval" aria-describedby="inputGroup-sizing-default" placeholder="E-mail / Username" name="username">
 						</div>
 						<div class="col-sm-12">
-							<input type="password" class="form-control password" aria-describedby="inputGroup-sizing-default" placeholder="Password" name="password">
+							<input type="password" class="form-control oval" aria-describedby="inputGroup-sizing-default" placeholder="Password" name="password">
 						</div>
 					</div>
 					<button class="btn btn-outline-danger btn-login">Masuk</button>

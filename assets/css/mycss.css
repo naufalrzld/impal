@@ -8,6 +8,10 @@ img {
 	width: 70px;
 	margin-right: 10px;
 }
+.label {
+  color: black;
+  font-size: 14px;
+}
 .top_header_area {
 	background-color: #ED9D00;
     width: 100%;
@@ -141,12 +145,8 @@ img {
 	border: none;
 	border-radius: 5px;
 }
-.username {
+.oval {
   margin-top: 10px;
-  border-radius: 16px;
-}
-.password {
-	margin-top: 10px;
   border-radius: 16px;
 }
 .btn-login {

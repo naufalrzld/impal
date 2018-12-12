@@ -14,7 +14,7 @@
 				<div class="col-sm-6">
 					<div class="web-tittle">
 						<a href="<?php echo site_url("dashboard")?>">
-							<img class="img-header-logo" src="<?php echo base_url("assets")?>/image/bukalapak.svg">
+							<img class="img-header-logo" src="<?php echo base_url("assets")?>/image/tb.svg">
 						</a>
 					</div>
 				</div>
@@ -31,15 +31,26 @@
 			<div class="header">
 				<h2>Formulir Pendaftaran</h2>
 			</div>
+			<?php
+				if (isset($error)) {
+			?>
+			<div class="col-sm-12">
+				<div class="alert alert-danger">
+					<?php echo $error ?>
+				</div>
+			</div>
+			<?php
+				}
+			?>
 			<form action="<?php echo site_url("register/addNewUser")?>" method="post">
 				<div class="row form-register">
 				<div class="col-sm-12">
-					<input type="text" class="form-control" aria-describedby="inputGroup-sizing-default" placeholder="Nama Lengkap" name="name">
+					<input type="text" class="form-control oval" aria-describedby="inputGroup-sizing-default" placeholder="Nama Lengkap" name="name">
 				</div>
 				</div>
 				<div class="row form-register">
 					<div class="col-sm-12">
-						<input type="text" class="form-control" aria-describedby="inputGroup-sizing-default" placeholder="Alamat E-mail" name="email">
+						<input type="text" class="form-control oval" aria-describedby="inputGroup-sizing-default" placeholder="Alamat E-mail" name="email">
 					</div>
 				</div>
 				<div class="row form-register">
@@ -50,12 +61,12 @@
 				</div>
 				<div class="row form-register">
 					<div class="col-sm-12">
-						<input type="text" class="form-control" aria-describedby="inputGroup-sizing-default" placeholder="Nomor Telepon" name="no_tlp">
+						<input type="text" class="form-control oval" aria-describedby="inputGroup-sizing-default" placeholder="Nomor Telepon" name="no_tlp">
 					</div>
 				</div>
 				<div class="row form-register">
 					<div class="col-sm-12">
-						<input type="password" class="form-control" aria-describedby="inputGroup-sizing-default" placeholder="Password" name="password">
+						<input type="password" class="form-control oval" aria-describedby="inputGroup-sizing-default" placeholder="Password" name="password">
 					</div>
 				</div>
 				<div class="row form-register">

@@ -1,13 +1,19 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 class Profil extends CI_Controller {
+	function __construct(){
+		parent::__construct();
+		$this->load->model('Pemesanan_Model');
+		$this->load->model('Pengiriman_Model');
+	}
 	public function index() {
 			$this->load->view("v_header");
 
 			$member_id = $this->session->userdata("datauser")["member_id"];
 
-			$this->load->model('Pemesanan_Model');
 			$data['history'] = $this->Pemesanan_Model->get_history($member_id);
+			$data['pengiriman'] = $this->Pemesanan_Model->getPengiriman($member_id);
+			$data["controller"] = $this;
 
 			$this->load->view("v_profil", $data);
 			$this->load->view("v_footer");
@@ -70,5 +76,20 @@ class Profil extends CI_Controller {
 		);
 		$this->session->set_userdata('datauser',$update);
 		redirect('profil');
+	}
+
+	function getDetailPengiriman($id_pengiriman) {
+		return $this->Pengiriman_Model->getDetailPengiriman($id_pengiriman);
+	}
+
+	function terima() {
+		$id_pengiriman = $this->input->post("id_pengiriman");
+
+		$data = array(
+			"status" => 2
+		);
+
+		$this->Pengiriman_Model->updatePengiriman($id_pengiriman, $data);
+		redirect("profil");
 	}
 }
