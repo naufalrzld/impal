@@ -13,10 +13,22 @@
 							<div class="desc">
 	              <h6 style="font-family: Arial; "><?php echo $barang['nama_barang']; ?></h6>
 	              <h6 style="color: #ED9D00; font-weight: bold; font-family: Arial; ">Rp <?php echo number_format($barang['harga']); ?></h6>
+								<?php
+									$stok = $barang['stok'];
+									$disable = "";
+									if ($stok == 0) {
+										$disable = "disabled";
+								?>
+									<center><span class="badge badge-secondary" style="background-color: #D32F2F;">Stok habis</span></center>
+								<?php
+									} else {
+										$disable = "enabled";
+									}
+								?>
 	            </div>
 							<div class="tombol-beli">
 	              <a href="<?php echo base_url('dashboard/detail')?>/<?php echo $barang['barang_id']; ?> " class="btn btn-outline-danger btn-block mx-auto" role="button" aria-pressed="true">Detail Barang</a>
-	              <button class="btn btn-outline-danger btn-block mx-auto" data-toggle="modal" data-target="#addCart<?= $barang['barang_id']; ?>">Beli</button>
+	              <button class="btn btn-outline-danger btn-block mx-auto" data-toggle="modal" data-target="#addCart<?= $barang['barang_id']; ?>" <?= $disable; ?>>Beli</button>
 	            </div>
 						</div>
             <div class="modal fade" id="addCart<?= $barang['barang_id']; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

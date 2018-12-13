@@ -7,16 +7,19 @@ class Profil extends CI_Controller {
 		$this->load->model('Pengiriman_Model');
 	}
 	public function index() {
-			$this->load->view("v_header");
-
 			$member_id = $this->session->userdata("datauser")["member_id"];
+			if ($member_id != null) {
+				$this->load->view("v_header");
 
-			$data['history'] = $this->Pemesanan_Model->get_history($member_id);
-			$data['pengiriman'] = $this->Pemesanan_Model->getPengiriman($member_id);
-			$data["controller"] = $this;
+				$data['history'] = $this->Pemesanan_Model->get_history($member_id);
+				$data['pengiriman'] = $this->Pemesanan_Model->getPengiriman($member_id);
+				$data["controller"] = $this;
 
-			$this->load->view("v_profil", $data);
-			$this->load->view("v_footer");
+				$this->load->view("v_profil", $data);
+				$this->load->view("v_footer");
+			} else {
+				redirect("login");
+			}
 	}
 	function veditprofil() {
 			$this->load->view("v_header");

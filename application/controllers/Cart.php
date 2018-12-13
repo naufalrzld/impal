@@ -52,36 +52,40 @@ class Cart extends CI_Controller {
 		$this->load->model("barang_model");
 		$datauser = $this->session->userdata("datauser");
 
-		$name = $this->input->post("name");
-		$no_tlp = $this->input->post("no_tlp");
-		$alamat = $this->input->post("alamat");
+		if ($datauser != null) {
+			$name = $this->input->post("name");
+			$no_tlp = $this->input->post("no_tlp");
+			$alamat = $this->input->post("alamat");
 
-		$dataPengiriman = array(
-			"nama_penerima" => $name,
-			"no_tlp" => $no_tlp,
-			"alamat" => $alamat,
-			"status" => 0
-		);
-
-		$id_pengiriman = $this->barang_model->addPengiriman($dataPengiriman);
-
-		foreach ($this->cart->contents() as $items) {
-			$data = array(
-				"member_id" => $datauser["member_id"],
-				"barang_id" => $items["id"],
-				"id_pengiriman" => $id_pengiriman,
-				"kuantitas" => $items["qty"],
-				"total" => $items["subtotal"]
+			$dataPengiriman = array(
+				"nama_penerima" => $name,
+				"no_tlp" => $no_tlp,
+				"alamat" => $alamat,
+				"status" => 0
 			);
 
-			$this->barang_model->addTransaction($data);
+			$id_pengiriman = $this->barang_model->addPengiriman($dataPengiriman);
 
-			$data = array(
-				'rowid' => $items["rowid"],
-				'qty' => 0,
-			);
-			$this->cart->update($data);
+			foreach ($this->cart->contents() as $items) {
+				$data = array(
+					"member_id" => $datauser["member_id"],
+					"barang_id" => $items["id"],
+					"id_pengiriman" => $id_pengiriman,
+					"kuantitas" => $items["qty"],
+					"total" => $items["subtotal"]
+				);
+
+				$this->barang_model->addTransaction($data);
+
+				$data = array(
+					'rowid' => $items["rowid"],
+					'qty' => 0,
+				);
+				$this->cart->update($data);
+			}
+			redirect("cart");
+		} else {
+			redirect("login");
 		}
-		redirect("cart");
 	}
 }

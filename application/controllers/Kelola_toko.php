@@ -6,22 +6,32 @@
 			$this->load->model('pengiriman_model');
 		}
 		function index() {
-			$toko_id =  $this->session->userdata("has_toko");
+			$member_id = $this->session->userdata("datauser")["member_id"];
+			if ($member_id != null) {
+				$toko_id =  $this->session->userdata("has_toko");
 
-			$data["dataBrg"] = $this->kelola_toko_model->get_data();
-			$data["pengiriman"] = $this->pengiriman_model->getPengiriman(0);
-			$data["dikirim"] = $this->pengiriman_model->getPengiriman(1);
-			$data["diterima"] = $this->pengiriman_model->getPengiriman(2);
-			$data["controller"] = $this;
-			$this->load->view("v_header");
-			$this->load->view("v_kelola_toko", $data);
-			$this->load->view('v_footer');
+				$data["dataBrg"] = $this->kelola_toko_model->get_data();
+				$data["pengiriman"] = $this->pengiriman_model->getPengiriman(0);
+				$data["dikirim"] = $this->pengiriman_model->getPengiriman(1);
+				$data["diterima"] = $this->pengiriman_model->getPengiriman(2);
+				$data["controller"] = $this;
+				$this->load->view("v_header");
+				$this->load->view("v_kelola_toko", $data);
+				$this->load->view('v_footer');
+			} else {
+				redirect("login");
+			}
 		}
 
 		function tambah_barang() {
-			$this->load->view('v_header');
-			$this->load->view("v_tambah_barang");
-			$this->load->view('v_footer');
+			$member_id = $this->session->userdata("datauser")["member_id"];
+			if ($member_id != null) {
+				$this->load->view('v_header');
+				$this->load->view("v_tambah_barang");
+				$this->load->view('v_footer');
+			} else {
+				redirect("login");
+			}
 		}
 
 		function buat_barang(){

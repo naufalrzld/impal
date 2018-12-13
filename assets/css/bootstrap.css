@@ -2958,7 +2958,7 @@ fieldset:disabled a.btn {
 }
 
 .btn-outline-danger.disabled, .btn-outline-danger:disabled {
-  color: #dc3545;
+  color: #aaaaaa;
   background-color: transparent;
 }
 
